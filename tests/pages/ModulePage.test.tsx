@@ -56,3 +56,21 @@ async function completePractice(u: ReturnType<typeof userEvent.setup>) {
   await u.click(screen.getByRole('button', { name: 'Check my answers' }))
   await u.click(screen.getByRole('button', { name: 'Continue to quiz' }))
 }
+
+describe('ModulePage scenario practice', () => {
+  it('plays the scenario and records practiceDone on finish', async () => {
+    const { makeModule, makeScenario } = await import('../fixtures')
+    const u = userEvent.setup()
+    const { store } = renderApp({
+      route: '#/module/m-s',
+      modules: [makeModule({ id: 'm-s', practice: { kind: 'scenario', scenario: makeScenario() } })],
+    })
+    await next(u)
+    await next(u)
+    expect(screen.getByText('Phone call')).toBeInTheDocument()
+    await u.click(screen.getByRole('button', { name: 'Hang up and call IT back' }))
+    await u.click(screen.getByRole('button', { name: 'Finish' }))
+    expect(store.load().some((e) => e.kind === 'practiceDone')).toBe(true)
+    expect(screen.getByRole('button', { name: 'Check answers' })).toBeInTheDocument()
+  })
+})
