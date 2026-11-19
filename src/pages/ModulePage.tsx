@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import PretendInbox from '../components/PretendInbox'
 import LessonStep from '../components/LessonStep'
 import QuizStep from '../components/QuizStep'
 import StoryStep from '../components/StoryStep'
@@ -96,7 +97,13 @@ function ModulePlayer({ mod }: { mod: TrainingModule }) {
   )
 }
 
-function PracticeStep({ onDone }: { mod: TrainingModule; onDone(): void }) {
+function PracticeStep({ mod, onDone }: { mod: TrainingModule; onDone(): void }) {
+  const { emails } = useContent()
+  if (mod.practice.kind === 'inbox') {
+    const ids = mod.practice.emailIds
+    const chosen = ids.map((id) => emails.find((e) => e.id === id)).filter((e) => e !== undefined)
+    return <PretendInbox emails={chosen} onDone={onDone} />
+  }
   return (
     <div className="button-row">
       <button className="button primary" onClick={onDone}>Continue</button>
