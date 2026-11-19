@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { QuizQuestion } from '../content/types'
 import { PASS_RATIO, scoreQuiz } from '../scoring'
 
@@ -12,6 +12,14 @@ export default function QuizStep({ questions, onSubmit, onPass }: Props) {
   const [answers, setAnswers] = useState<(number | null)[]>(() => questions.map(() => null))
   const [score, setScore] = useState<number | null>(null)
   const checked = score !== null
+  const resultRef = useRef<HTMLParagraphElement>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const retried = useRef(false)
+
+  useEffect(() => {
+    if (checked) resultRef.current?.focus()
+    else if (retried.current) rootRef.current?.querySelector('input')?.focus()
+  }, [checked])
   const allAnswered = answers.every((a) => a !== null)
   const right = questions.filter((q, i) => answers[i] === q.correctIndex).length
 
@@ -22,12 +30,13 @@ export default function QuizStep({ questions, onSubmit, onPass }: Props) {
   }
 
   function retry() {
+    retried.current = true
     setAnswers(questions.map(() => null))
     setScore(null)
   }
 
   return (
-    <div>
+    <div ref={rootRef}>
       {questions.map((q, qi) => (
         <fieldset key={q.id} className="quiz-q" role="radiogroup" aria-labelledby={`${q.id}-legend`}>
           <legend id={`${q.id}-legend`}>{qi + 1}. {q.prompt}</legend>
@@ -61,8 +70,8 @@ export default function QuizStep({ questions, onSubmit, onPass }: Props) {
           <button className="button primary" disabled={!allAnswered} onClick={submit}>Check answers</button>
         </div>
       ) : (
-        <div aria-live="polite">
-          <p className="result">
+        <div>
+          <p className="result" ref={resultRef} tabIndex={-1}>
             {right} of {questions.length} correct.{' '}
             {score >= PASS_RATIO ? 'Nice work.' : `You need ${Math.ceil(PASS_RATIO * questions.length)} to pass. Have another go.`}
           </p>

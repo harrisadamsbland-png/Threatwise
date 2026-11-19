@@ -16,7 +16,7 @@ export const m7Reporting: TrainingModule = {
     stopMoment: 'The damage was limited because someone reported their own mistake quickly. That is the whole point of this module.',
     sources: [
       { title: 'Malwarebytes: Reddit breached, here’s what you need to know', url: 'https://www.malwarebytes.com/blog/news/2023/02/reddit-systems-compromised-by-phish-attack-heres-what-you-need-to-do-next' },
-      { title: 'Security Affairs: Reddit discloses security breach', url: 'https://securityaffairs.com/posts/reddit-security-breach' },
+      { title: 'Security Affairs: Reddit discloses security breach', url: 'https://securityaffairs.com/142071/data-breach/reddit-security-breach.html' },
     ],
   },
   lesson: [
@@ -75,6 +75,13 @@ export const m7Reporting: TrainingModule = {
       options: ['Personal email', 'A USB stick', 'The company’s approved sharing tool, after checking the recipient', 'A public file-sharing site'],
       correctIndex: 2,
       explanation: 'Approved tools have the right protections and controls. Always double-check who you’re sending to.',
+    },
+    {
+      id: "m7-q4",
+      prompt: "You’re not sure whether a strange email you clicked was really phishing. Should you report it?",
+      options: ["No, only report if you’re certain", "Yes. Report it and let security decide.", "Only if your computer starts acting oddly", "Only if a colleague clicked it too"],
+      correctIndex: 1,
+      explanation: "Unsure is exactly when to report. Security teams can check quickly, and a false alarm costs nothing.",
     },
   ],
   whatToDo: [

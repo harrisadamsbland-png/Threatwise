@@ -69,3 +69,10 @@ describe('validateContent', () => {
     expect(has(validateContent([m], [makeEmail()]), 'duplicate', 'q0')).toBe(true)
   })
 })
+
+describe('validateContent body links', () => {
+  it('requires URLs inside email bodies to use .example domains', () => {
+    const e = makeEmail({ body: ['Go to https://www.realbank.com/login now'] })
+    expect(has(validateContent([makeModule()], [e]), 'e1', 'link', 'fictional domain')).toBe(true)
+  })
+})

@@ -57,8 +57,12 @@ function ModulePlayer({ mod }: { mod: TrainingModule }) {
   }, [stepIndex])
 
   const go = (delta: number) => setStepIndex((i) => Math.min(STEPS.length - 1, Math.max(0, i + delta)))
+  const practiceRecorded = useRef(false)
   const finishPractice = () => {
-    record({ moduleId: mod.id, kind: 'practiceDone' })
+    if (!practiceRecorded.current) {
+      practiceRecorded.current = true
+      record({ moduleId: mod.id, kind: 'practiceDone' })
+    }
     go(1)
   }
 
@@ -76,17 +80,17 @@ function ModulePlayer({ mod }: { mod: TrainingModule }) {
       {heading !== LABELS[step] && <p className="step-label">{LABELS[step]}</p>}
       <h2 ref={headingRef} tabIndex={-1}>{heading}</h2>
 
-      {step === 'story' && <StoryStep story={mod.story} />}
-      {step === 'lesson' && <LessonStep lesson={mod.lesson} financeExample={mod.financeExample} />}
-      {step === 'practice' && <PracticeStep mod={mod} onDone={finishPractice} />}
-      {step === 'quiz' && (
+      <div hidden={step !== 'story'}><StoryStep story={mod.story} /></div>
+      <div hidden={step !== 'lesson'}><LessonStep lesson={mod.lesson} financeExample={mod.financeExample} /></div>
+      <div hidden={step !== 'practice'}><PracticeStep mod={mod} onDone={finishPractice} /></div>
+      <div hidden={step !== 'quiz'}>
         <QuizStep
           questions={mod.quiz}
           onSubmit={(score) => record({ moduleId: mod.id, kind: 'quizScored', score })}
           onPass={() => go(1)}
         />
-      )}
-      {step === 'whatToDo' && <WhatToDoCard items={mod.whatToDo} />}
+      </div>
+      <div hidden={step !== 'whatToDo'}><WhatToDoCard items={mod.whatToDo} /></div>
 
       <div className="button-row">
         {stepIndex > 0 && step !== 'whatToDo' && (

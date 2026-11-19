@@ -9,7 +9,7 @@ export const m4Bribes: TrainingModule = {
     headline: 'Support staff paid to copy customer data',
     date: 'Disclosed May 2025',
     body: [
-      'In May 2025, the crypto exchange Coinbase disclosed that criminals had used cash offers to convince a small group of insiders, support staff and contractors based in India, to copy customer data from its support tools.',
+      'In May 2025, the crypto exchange Coinbase disclosed that criminals had used cash offers to convince a small group of insiders, overseas support staff and contractors, to copy customer data from its support tools.',
       'The stolen information covered less than 1% of monthly transacting users. It was used to call customers while posing as Coinbase, to trick them into sending their funds. The attackers then emailed Coinbase demanding a $20 million ransom.',
       'Coinbase refused to pay, set up a $20 million reward for information leading to the criminals’ arrest, and said it would reimburse affected customers. It estimated the total cost at $180–400 million. Login credentials and private keys were not taken.',
     ],
@@ -92,6 +92,13 @@ export const m4Bribes: TrainingModule = {
       options: ['Keep going so they stay quiet', 'Tell security or your manager everything now', 'Quit your job', 'Block them and hope it goes away'],
       correctIndex: 1,
       explanation: 'Coming forward is always the best option. It stops the harm, and companies respond very differently to people who self-report.',
+    },
+    {
+      id: "m4-q4",
+      prompt: "A colleague tells you they’ve been getting “side income” offers for customer lookups and might accept. What’s the best response?",
+      options: ["Ignore it, it’s their business", "Encourage them to report it, and report the approach to security yourself if needed", "Ask them to split the money with you", "Post about it on social media"],
+      correctIndex: 1,
+      explanation: "Approaches usually target many people at once. Reporting protects your colleague, customers and the company.",
     },
   ],
   whatToDo: [

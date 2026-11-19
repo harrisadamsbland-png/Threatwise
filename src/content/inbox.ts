@@ -27,15 +27,15 @@ export const INBOX_EMAILS: InboxEmail[] = [
   },
   {
     id: 'inbox-vendor-bank-change',
-    fromName: 'Brightline Supplies Accounts',
-    fromAddress: 'accounts@brightline-supp1ies.example',
+    fromName: 'Larkspur Supplies Accounts',
+    fromAddress: 'accounts@larkspur-supp1ies.example',
     subject: 'Updated bank details for invoice #4471',
     body: [
       'Hi,',
       'Please note we have changed banks. Kindly pay invoice #4471 (£18,450) and all future invoices to our new account below:',
-      'Account: 0049 2817 · Sort code: 40-11-62',
+      'Account: 0000 4471 · Sort code: 00-00-00',
       'We need payment today to avoid a late fee. Please don’t call our office as the phones are being upgraded.',
-      'Thanks, Mark — Brightline Accounts',
+      'Thanks, Mark — Larkspur Accounts',
     ],
     isPhishing: true,
     redFlags: [
@@ -66,7 +66,7 @@ export const INBOX_EMAILS: InboxEmail[] = [
   {
     id: 'inbox-ceo-gift-cards',
     fromName: 'Dana Whitfield',
-    fromAddress: 'dana.whitfield.ceo@fastmail-box.example',
+    fromAddress: 'dana.whitfield.ceo@personal-mailbox.example',
     subject: 'Quick favour – are you at your desk?',
     body: [
       'Hi, I’m in back-to-back meetings and need a quick favour.',
@@ -160,8 +160,8 @@ export const INBOX_EMAILS: InboxEmail[] = [
   },
   {
     id: 'inbox-vendor-order',
-    fromName: 'Brightline Supplies Orders',
-    fromAddress: 'orders@brightline-supplies.example',
+    fromName: 'Larkspur Supplies Orders',
+    fromAddress: 'orders@larkspur-supplies.example',
     subject: 'Order confirmation for PO-2291',
     body: [
       'Thanks for your order PO-2291 (printer paper × 40 boxes).',
@@ -169,6 +169,6 @@ export const INBOX_EMAILS: InboxEmail[] = [
     ],
     isPhishing: false,
     redFlags: [],
-    whySafe: 'The correct Brightline domain (spelled with a real L), it matches an order you placed, and it doesn’t change any payment details or ask you to act.',
+    whySafe: 'The correct Larkspur domain (spelled with a real L), it matches an order you placed, and it doesn’t change any payment details or ask you to act.',
   },
 ]

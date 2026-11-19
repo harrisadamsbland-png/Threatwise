@@ -26,3 +26,11 @@ it('content avoids shaming language', () => {
     expect(text.includes(word), word).toBe(false)
   }
 })
+
+it('every quiz allows one wrong answer and still passes', async () => {
+  const { PASS_RATIO } = await import('../../src/scoring')
+  for (const m of MODULES) {
+    const n = m.quiz.length
+    expect((n - 1) / n >= PASS_RATIO, `${m.id} has ${n} questions`).toBe(true)
+  }
+})

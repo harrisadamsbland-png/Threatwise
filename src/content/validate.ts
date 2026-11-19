@@ -26,6 +26,11 @@ function checkEmail(e: InboxEmail, problems: string[]) {
   if (!/@[a-z0-9.-]+\.example$/i.test(e.fromAddress)) {
     problems.push(`${p}: sender "${e.fromAddress}" must use a fictional domain ending in .example`)
   }
+  for (const line of e.body) {
+    for (const [, host] of line.matchAll(/(?:https?|hxxps?):\/\/([^/\s]+)/gi)) {
+      if (!/\.example$/i.test(host)) problems.push(`${p}: link to "${host}" must use a fictional domain ending in .example`)
+    }
+  }
   if (e.isPhishing && e.redFlags.length === 0) problems.push(`${p}: phishing email has no red flags`)
   if (!e.isPhishing && !e.whySafe) problems.push(`${p}: safe email needs whySafe`)
 }

@@ -84,6 +84,13 @@ export const m3Deepfake: TrainingModule = {
       correctIndex: 1,
       explanation: 'Following the process is doing your job well. Companies set these rules precisely so you can push back safely.',
     },
+    {
+      id: "m3-q4",
+      prompt: "A voice message from your manager asks you to urgently change a supplier’s bank details. It really sounds like them. What should you do?",
+      options: ["Make the change, since it’s their voice", "Call your manager back on their known number, or ask in person, before changing anything", "Reply to the voice message to confirm", "Make the change and tell finance later"],
+      correctIndex: 1,
+      explanation: "Voices can be cloned from a short clip. Confirm through a channel you start yourself before changing any payment details.",
+    },
   ],
   whatToDo: [
     'Treat “seen it / heard it” as not enough for payments or sensitive data.',

@@ -49,3 +49,15 @@ describe('QuizStep', () => {
     expect(screen.queryByText('Because 0.')).toBeNull()
   })
 })
+
+describe('QuizStep focus', () => {
+  it('moves focus to the result after checking, and to the first question after retry', async () => {
+    const u = userEvent.setup()
+    render(<QuizStep questions={questions} onSubmit={vi.fn()} onPass={vi.fn()} />)
+    for (const g of screen.getAllByRole('radiogroup')) await u.click(g.querySelectorAll('input')[1])
+    await u.click(screen.getByRole('button', { name: 'Check answers' }))
+    expect(document.activeElement).toBe(screen.getByText(/0 of 3 correct/))
+    await u.click(screen.getByRole('button', { name: 'Try again' }))
+    expect(document.activeElement).toBe(screen.getAllByRole('radiogroup')[0].querySelector('input'))
+  })
+})

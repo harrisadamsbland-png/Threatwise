@@ -74,3 +74,30 @@ describe('ModulePage scenario practice', () => {
     expect(screen.getByRole('button', { name: 'Check answers' })).toBeInTheDocument()
   })
 })
+
+describe('ModulePage keeps work when going back', () => {
+  it('keeps inbox verdicts after Back and Next', async () => {
+    const u = userEvent.setup()
+    renderApp({ route: '#/module/m-a' })
+    await next(u)
+    await next(u)
+    await u.click(screen.getByRole('button', { name: /IT Support/ }))
+    await u.click(screen.getByRole('button', { name: 'Phishing' }))
+    expect(screen.getByText('1 of 1 judged')).toBeInTheDocument()
+    await u.click(screen.getByRole('button', { name: 'Back' }))
+    await next(u)
+    expect(screen.getByText('1 of 1 judged')).toBeInTheDocument()
+  })
+
+  it('returning from the quiz to practice still lets you continue without redoing it', async () => {
+    const u = userEvent.setup()
+    const { store } = renderApp({ route: '#/module/m-a' })
+    await next(u)
+    await next(u)
+    await completePractice(u)
+    await u.click(screen.getByRole('button', { name: 'Back' }))
+    await u.click(screen.getByRole('button', { name: 'Continue to quiz' }))
+    expect(screen.getByRole('button', { name: 'Check answers' })).toBeInTheDocument()
+    expect(store.load().filter((e) => e.kind === 'practiceDone')).toHaveLength(1)
+  })
+})

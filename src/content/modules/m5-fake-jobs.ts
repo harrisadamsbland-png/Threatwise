@@ -76,6 +76,13 @@ export const m5FakeJobs: TrainingModule = {
       correctIndex: 1,
       explanation: 'Disconnecting limits spread and data loss, and IT can investigate properly. Never feel bad about calling.',
     },
+    {
+      id: "m5-q4",
+      prompt: "A document you weren’t expecting opens with a banner saying “Enable content to view this document”. What should you do?",
+      options: ["Click Enable content", "Close it without enabling anything, and report it if you didn’t expect it", "Forward it to a colleague to try", "Print it instead"],
+      correctIndex: 1,
+      explanation: "“Enable content” turns on macros, a very common way for malware to run. Legitimate documents rarely need it.",
+    },
   ],
   whatToDo: [
     'Be extra careful with flattering, unexpected approaches.',

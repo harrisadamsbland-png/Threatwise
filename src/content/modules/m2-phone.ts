@@ -6,7 +6,7 @@ export const m2Phone: TrainingModule = {
   title: 'Phone and help-desk impersonation',
   minutes: 7,
   story: {
-    headline: 'The phone call that shut down Las Vegas casinos',
+    headline: 'The phone call that knocked out MGM’s casino and hotel systems',
     date: 'September 2023',
     body: [
       'In September 2023, MGM Resorts was hit by a cyberattack that disrupted slot machines, hotel room keys and booking systems across its properties.',
@@ -17,6 +17,7 @@ export const m2Phone: TrainingModule = {
     sources: [
       { title: 'Netwrix: How the MGM cyberattack happened', url: 'https://netwrix.com/en/resources/blog/mgm-cyber-attack/' },
       { title: 'TeamPassword: The MGM Resorts cyberattack', url: 'https://teampassword.com/blog/mgm-resort-cyberattack' },
+      { title: 'Fortune: MGM hacking, FBI investigates', url: 'https://fortune.com/2023/09/12/mgm-las-vegas-hacking-fbi-investigates/' },
     ],
   },
   lesson: [
@@ -83,6 +84,13 @@ export const m2Phone: TrainingModule = {
       options: ['Call them back on a number from the company directory or intranet', 'Call back the number they gave you', 'Ask them to email you', 'Trust caller ID'],
       correctIndex: 0,
       explanation: 'Only a number you found yourself is trustworthy. Caller ID and numbers they give you can be faked.',
+    },
+    {
+      id: "m2-q4",
+      prompt: "You work on the help desk. A caller says they’re a senior manager, locked out before a big meeting, and demands an immediate password reset. What do you do?",
+      options: ["Reset it, since they’re senior and in a hurry", "Follow the normal identity check, including a callback to their number in the directory", "Reset it but email them the new password", "Ask them for their date of birth and reset it"],
+      correctIndex: 1,
+      explanation: "Rank and urgency are exactly what attackers use. The identity check protects the manager too. Easily found facts like a birthday aren’t proof.",
     },
   ],
   whatToDo: [

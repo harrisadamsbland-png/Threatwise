@@ -36,7 +36,7 @@ try {
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await shot('inbox')
-    await page.getByRole('button', { name: /Brightline Supplies Accounts/ }).click()
+    await page.getByRole('button', { name: /Larkspur Supplies Accounts/ }).click()
     await shot('email')
     const flag = page.getByRole('button', { name: 'Phishing', exact: true })
     if (!(await flag.isVisible())) failures.push(`${label}: Phishing button not visible`)

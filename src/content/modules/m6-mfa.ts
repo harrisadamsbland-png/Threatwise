@@ -84,6 +84,13 @@ export const m6Mfa: TrainingModule = {
       correctIndex: 1,
       explanation: 'Reused passwords are one of the most common ways in. A password manager makes unique passwords easy.',
     },
+    {
+      id: "m6-q4",
+      prompt: "You accidentally approved an MFA prompt you didn’t start. What now?",
+      options: ["Nothing, it was only one", "Report it to IT/security immediately so they can lock the session and reset your password", "Turn off MFA so it doesn’t happen again", "Change your phone’s wallpaper"],
+      correctIndex: 1,
+      explanation: "One approval can be enough to let an attacker in. Reporting fast lets security cut off access. Nobody will blame you.",
+    },
   ],
   whatToDo: [
     'Only approve MFA prompts for logins you’re doing right now.',

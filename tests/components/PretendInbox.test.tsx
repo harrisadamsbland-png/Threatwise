@@ -52,3 +52,20 @@ describe('PretendInbox', () => {
     expect(onDone).toHaveBeenCalledWith({ correct: 1, total: 2, missed: ['e2'] })
   })
 })
+
+describe('PretendInbox focus', () => {
+  it('focuses the email heading on open, the list item on back, and the score on check', async () => {
+    const u = userEvent.setup()
+    render(<PretendInbox emails={emails} onDone={vi.fn()} />)
+    await u.click(screen.getByRole('button', { name: /IT Support/ }))
+    expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Password expires today' }))
+    await u.click(screen.getByRole('button', { name: /Back to inbox/ }))
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: /IT Support/ }))
+    await u.click(screen.getByRole('button', { name: /IT Support/ }))
+    await u.click(screen.getByRole('button', { name: 'Phishing' }))
+    await u.click(screen.getByRole('button', { name: /Priya in HR/ }))
+    await u.click(screen.getByRole('button', { name: 'Looks safe' }))
+    await u.click(screen.getByRole('button', { name: 'Check my answers' }))
+    expect(document.activeElement).toBe(screen.getByText('2 of 2 right'))
+  })
+})

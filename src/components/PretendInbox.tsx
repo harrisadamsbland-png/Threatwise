@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { InboxEmail } from '../content/types'
 import { scoreInbox } from '../scoring'
 
@@ -27,12 +27,29 @@ export default function PretendInbox({ emails, onDone }: Props) {
   const [verdicts, setVerdicts] = useState<Record<string, boolean>>({})
   const [result, setResult] = useState<Result | null>(null)
   const open = emails.find((e) => e.id === openId)
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const resultRef = useRef<HTMLParagraphElement>(null)
+  const itemRefs = useRef(new Map<string, HTMLButtonElement>())
+  const lastOpened = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (openId) {
+      lastOpened.current = openId
+      headingRef.current?.focus()
+    } else if (lastOpened.current) {
+      itemRefs.current.get(lastOpened.current)?.focus()
+    }
+  }, [openId])
+
+  useEffect(() => {
+    if (result) resultRef.current?.focus()
+  }, [result])
   const allJudged = emails.every((e) => e.id in verdicts)
 
   if (result) {
     return (
       <div>
-        <p className="result" aria-live="polite">{result.correct} of {result.total} right</p>
+        <p className="result" ref={resultRef} tabIndex={-1}>{result.correct} of {result.total} right</p>
         <p className="muted">Here's what to look for in each one.</p>
         {emails.map((e) => {
           const said = verdicts[e.id]
@@ -75,7 +92,11 @@ export default function PretendInbox({ emails, onDone }: Props) {
         <ul className="inbox-list">
           {emails.map((e) => (
             <li key={e.id}>
-              <button className={`inbox-item${e.id === openId ? ' is-open' : ''}`} onClick={() => setOpenId(e.id)}>
+              <button
+                ref={(el) => { if (el) itemRefs.current.set(e.id, el); else itemRefs.current.delete(e.id) }}
+                className={`inbox-item${e.id === openId ? ' is-open' : ''}`}
+                onClick={() => setOpenId(e.id)}
+              >
                 <span className="inbox-from">
                   <span>{e.fromName}</span>
                   {e.id in verdicts && (
@@ -94,7 +115,7 @@ export default function PretendInbox({ emails, onDone }: Props) {
             <>
               <button className="button back-to-inbox" onClick={() => setOpenId(null)}>← Back to inbox</button>
               <div className="email-head">
-                <h3>{open.subject}</h3>
+                <h3 ref={headingRef} tabIndex={-1}>{open.subject}</h3>
                 <p><strong>{open.fromName}</strong></p>
                 <p className="muted">{open.fromAddress}</p>
               </div>

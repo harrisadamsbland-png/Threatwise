@@ -44,3 +44,14 @@ describe('ScenarioPlayer', () => {
     expect(screen.getByText(/need your code/)).toBeInTheDocument()
   })
 })
+
+describe('ScenarioPlayer focus', () => {
+  it('moves focus to the feedback after choosing, and to the step text after Continue', async () => {
+    const u = userEvent.setup()
+    render(<ScenarioPlayer scenario={makeScenario()} onDone={vi.fn()} />)
+    await u.click(screen.getByRole('button', { name: 'Read out the code' }))
+    expect(document.activeElement).toBe(screen.getByText('Never share codes.'))
+    await u.click(screen.getByRole('button', { name: 'Continue' }))
+    expect(document.activeElement).toBe(screen.getByText(/ask for your password/))
+  })
+})
